@@ -3,7 +3,9 @@ CFLAGS = -Wall -Wextra -Werror -MMD -g3
 
 HEADERS = philo.h
 
-SOURCES = main.c
+SOURCES = main.c \
+		parsing.c \
+		ft_atoi.c
 
 SRC = srcs/
 DIR = objs_deps/
@@ -22,8 +24,6 @@ DEP = $(SOURCES:.c=.d)
 NAME = philo
 
 all : $(NAME)
-
-bonus : $(NAME_BONUS)
 
 $(NAME) : $(OBJS)
 	@$(CC) $(CFLAGS) $(INCLUDES) -o $(NAME) $(OBJS)
