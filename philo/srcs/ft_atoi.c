@@ -6,32 +6,17 @@
 /*   By: niromano <niromano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 12:34:12 by niromano          #+#    #+#             */
-/*   Updated: 2023/07/29 06:38:08 by niromano         ###   ########.fr       */
+/*   Updated: 2023/08/01 19:22:02 by niromano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-static int	negatif(int less, int nb)
+long	ft_atoi(const char *nptr)
 {
-	if (less == 1)
-		return (-nb);
-	return (nb);
-}
-
-int	ft_atoi(const char *nptr)
-{
-	int	i;
-	int	nb;
-	int	less;
+	int		i;
+	long	nb;
 
 	i = 0;
 	nb = 0;
-	less = 0;
-	while ((nptr[i] >= 9 && nptr[i] <= 13) || nptr[i] == 32)
-		i ++;
-	if (nptr[i] == '-')
-		less ++;
-	if (nptr[i] == '-' || nptr[i] == '+')
-		i ++;
 	if (nptr[i] >= '0' && nptr[i] <= '9')
 	{
 		while (nptr[i] >= '0' && nptr[i] <= '9')
@@ -40,7 +25,7 @@ int	ft_atoi(const char *nptr)
 			nb = nb + nptr[i] - 48;
 			i ++;
 		}
-		return (negatif(less, nb));
+		return (nb);
 	}
 	return (0);
 }
