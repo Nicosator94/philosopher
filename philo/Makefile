@@ -5,7 +5,8 @@ HEADERS = philo.h
 
 SOURCES = main.c \
 		parsing.c \
-		ft_atoi.c
+		ft_atoi.c \
+		create_thread.c
 
 SRC = srcs/
 DIR = objs_deps/

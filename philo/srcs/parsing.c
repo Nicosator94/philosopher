@@ -6,7 +6,7 @@
 /*   By: niromano <niromano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 07:01:10 by niromano          #+#    #+#             */
-/*   Updated: 2023/08/01 19:40:20 by niromano         ###   ########.fr       */
+/*   Updated: 2023/09/01 08:40:33 by niromano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,17 @@ int	check_max(t_data data)
 	{
 		printf("Error\n");
 		printf("A given variable exceeds the max int !\n");
+		return (1);
+	}
+	return (0);
+}
+
+int	check_nb_philo(t_data data)
+{
+	if (data.nb_philo == 0)
+	{
+		printf("Error\n");
+		printf("There are no philosophers !\n");
 		return (1);
 	}
 	return (0);
