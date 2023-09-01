@@ -5,6 +5,8 @@ HEADERS = philo.h
 
 SOURCES = main.c \
 		parsing.c \
+		init_data.c \
+		time.c \
 		ft_atoi.c \
 		create_thread.c
 
