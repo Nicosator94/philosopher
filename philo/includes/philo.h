@@ -6,7 +6,7 @@
 /*   By: niromano <niromano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 09:11:16 by niromano          #+#    #+#             */
-/*   Updated: 2023/09/01 12:53:02 by niromano         ###   ########.fr       */
+/*   Updated: 2023/09/01 15:07:13 by niromano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,6 @@
 # include <sys/time.h>
 # include <pthread.h>
 
-typedef struct s_time
-{
-	long		start;
-	long		now;
-	int			stop;
-	pthread_t	thread_time;
-}				t_time;
-
 typedef struct s_data
 {
 	long	nb_philo;
@@ -35,7 +27,7 @@ typedef struct s_data
 	long	t_eat;
 	long	t_sleep;
 	long	nb_t_eat;
-	t_time	time;
+	long	time_start;
 }				t_data;
 
 typedef struct s_philo
@@ -43,6 +35,8 @@ typedef struct s_philo
 	int			number;
 	pthread_t	thread_philo;
 	int			number_eat;
+	int			fork;
+	int			*next_fork;
 	t_data		*data;
 }				t_philo;
 
@@ -50,7 +44,8 @@ int		parsing(int argc, char *argv[]);
 long	ft_atoi(const char *nptr);
 
 t_data	init_data(int argc, char *argv[]);
-void	*actualize_time(void *arg);
+long	set_time(void);
+long	actualize_time(void *arg);
 
 int		check_max(t_data data);
 int		check_nb_philo(t_data data);
