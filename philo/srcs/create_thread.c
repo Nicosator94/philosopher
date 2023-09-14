@@ -6,7 +6,7 @@
 /*   By: niromano <niromano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 10:47:52 by niromano          #+#    #+#             */
-/*   Updated: 2023/09/01 15:16:34 by niromano         ###   ########.fr       */
+/*   Updated: 2023/09/14 10:07:23 by niromano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,26 @@ void	*fn_philo(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	printf("nb = %d ici = %ld\n", philo->number, philo->data->time_start);
-	// printf("%ld %d has taken a fork\n", actualize_time(&philo->data->time_start), philo->number);
-	// printf("%ld %d is eating\n", actualize_time(&philo->data->time_start), philo->number);
-	// printf("%ld %d is sleeping\n", actualize_time(&philo->data->time_start), philo->number);
-	// printf("%ld %d is thinking\n", actualize_time(&philo->data->time_start), philo->number);
-	// printf("%ld %d is died\n", actualize_time(&philo->data->time_start), philo->number);
-	// printf("nb = %d\n", philo->number);
-	// printf("fork = %d\n", philo->fork);
-	// printf("next = %d\n", *philo->next_fork);
-	// pthread_exit(EXIT_SUCCESS);
+	printf("%ld %d has taken a fork\n", get_time() - philo->data.time_start, philo->number);
+	// printf("%ld %d is eating\n", actualize_time(&philo->data.time_start), philo->number);
+	// printf("%ld %d is sleeping\n", actualize_time(&philo->data.time_start), philo->number);
+	// printf("%ld %d is thinking\n", actualize_time(&philo->data.time_start), philo->number);
+	// printf("%ld %d is died\n", actualize_time(&philo->data.time_start), philo->number);
+	pthread_exit(EXIT_SUCCESS);
 	return (NULL);
+}
+
+t_data	copy_data(t_data data)
+{
+	t_data	copy_data;
+
+	copy_data.nb_philo = data.nb_philo;
+	copy_data.t_die = data.t_die;
+	copy_data.t_eat = data.t_eat;
+	copy_data.t_sleep = data.t_sleep;
+	copy_data.nb_t_eat = data.nb_t_eat;
+	copy_data.time_start = data.time_start;
+	return (copy_data);
 }
 
 int	create_thread(t_data data, t_philo *philo)
@@ -37,7 +46,7 @@ int	create_thread(t_data data, t_philo *philo)
 	i = 0;
 	while (i != data.nb_philo)
 	{
-		philo[i].data = &data;
+		philo[i].data = copy_data(data);
 		philo[i].number = i + 1;
 		philo[i].number_eat = 0;
 		philo[i].fork = 1;
