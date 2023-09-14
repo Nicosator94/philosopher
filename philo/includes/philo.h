@@ -6,7 +6,7 @@
 /*   By: niromano <niromano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 09:11:16 by niromano          #+#    #+#             */
-/*   Updated: 2023/09/14 10:07:27 by niromano         ###   ########.fr       */
+/*   Updated: 2023/09/14 12:17:30 by niromano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,18 @@ typedef struct s_data
 	long	t_sleep;
 	long	nb_t_eat;
 	long	time_start;
+	int		*death;
 }				t_data;
 
 typedef struct s_philo
 {
-	int			number;
-	pthread_t	thread_philo;
-	int			number_eat;
-	int			fork;
-	int			*next_fork;
-	t_data		data;
+	int				number;
+	pthread_t		thread_philo;
+	int				number_eat;
+	pthread_mutex_t	fork;
+	pthread_mutex_t	*next_fork;
+	long			actu_time;
+	t_data			data;
 }				t_philo;
 
 int		parsing(int argc, char *argv[]);
