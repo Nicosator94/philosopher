@@ -6,7 +6,7 @@
 /*   By: niromano <niromano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 07:01:10 by niromano          #+#    #+#             */
-/*   Updated: 2023/09/01 08:40:33 by niromano         ###   ########.fr       */
+/*   Updated: 2023/09/15 07:13:30 by niromano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,13 @@ int	check_nb_philo(t_data data)
 	{
 		printf("Error\n");
 		printf("There are no philosophers !\n");
+		return (1);
+	}
+	else if (data.nb_philo == 1)
+	{
+		printf("0 1 is thinking\n");
+		usleep(data.t_die * 1000);
+		printf("%ld 1 died\n", data.t_die);
 		return (1);
 	}
 	return (0);

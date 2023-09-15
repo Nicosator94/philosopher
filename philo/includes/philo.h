@@ -6,7 +6,7 @@
 /*   By: niromano <niromano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 09:11:16 by niromano          #+#    #+#             */
-/*   Updated: 2023/09/14 12:17:30 by niromano         ###   ########.fr       */
+/*   Updated: 2023/09/15 09:40:52 by niromano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ typedef struct s_data
 	long	t_sleep;
 	long	nb_t_eat;
 	long	time_start;
+	//pthread_mutex_t	*m_death;
 	int		*death;
+	//pthread_mutex_t	*m_trigger;
+	int		*trigger_nb_eat;
 }				t_data;
 
 typedef struct s_philo

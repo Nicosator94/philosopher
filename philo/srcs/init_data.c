@@ -6,7 +6,7 @@
 /*   By: niromano <niromano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 10:59:22 by niromano          #+#    #+#             */
-/*   Updated: 2023/09/14 12:15:51 by niromano         ###   ########.fr       */
+/*   Updated: 2023/09/15 09:39:17 by niromano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,7 @@ t_data	init_data(int argc, char *argv[])
 		data.nb_t_eat = ft_atoi(argv[5]);
 	else
 		data.nb_t_eat = -1;
+	data.death = 0;
+	data.trigger_nb_eat = 0;
 	return (data);
 }
