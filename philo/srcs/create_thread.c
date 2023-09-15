@@ -6,7 +6,7 @@
 /*   By: niromano <niromano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 10:47:52 by niromano          #+#    #+#             */
-/*   Updated: 2023/09/15 09:14:07 by niromano         ###   ########.fr       */
+/*   Updated: 2023/09/15 12:00:18 by niromano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,54 @@
 
 int	eating(t_philo *philo)
 {
+	pthread_mutex_lock(philo->data.m_trigger);
 	if (*philo->data.trigger_nb_eat == 1)
+	{
+		pthread_mutex_unlock(philo->data.m_trigger);
 		return (1);
+	}
+	pthread_mutex_unlock(philo->data.m_trigger);
 	pthread_mutex_lock(&philo->fork);
 	pthread_mutex_lock(philo->next_fork);
 	philo->actu_time = get_time() - philo->data.time_start;
+	// mutex_printf(philo, 1);
+	// mutex_printf(philo, 1);
+	// mutex_printf(philo, 2);
 	printf("%ld %d has taken a fork\n", get_time() - philo->data.time_start, philo->number);
 	printf("%ld %d has taken a fork\n", get_time() - philo->data.time_start, philo->number);
 	printf("%ld %d is eating\n", get_time() - philo->data.time_start, philo->number);
 	philo->number_eat += 1;
 	while (get_time() - (philo->data.time_start + philo->actu_time) != philo->data.t_eat)
 	{
+		pthread_mutex_lock(philo->data.m_trigger);
 		if (*philo->data.trigger_nb_eat == 1)
 		{
+			pthread_mutex_unlock(philo->data.m_trigger);
 			pthread_mutex_unlock(philo->next_fork);
 			pthread_mutex_unlock(&philo->fork);
 			return (1);
 		}
+		pthread_mutex_unlock(philo->data.m_trigger);
 	}
 	if (philo->number_eat == philo->data.nb_t_eat)
+	{
+		pthread_mutex_lock(philo->data.m_trigger);
 		*philo->data.trigger_nb_eat = 1;
+		pthread_mutex_unlock(philo->data.m_trigger);
+	}
 	pthread_mutex_unlock(philo->next_fork);
 	pthread_mutex_unlock(&philo->fork);
 	philo->actu_time = get_time() - philo->data.time_start;
 	printf("%ld %d is sleeping\n", get_time() - philo->data.time_start, philo->number);
 	while (get_time() - (philo->data.time_start + philo->actu_time) != philo->data.t_sleep)
 	{
+		pthread_mutex_lock(philo->data.m_trigger);
 		if (*philo->data.trigger_nb_eat == 1)
+		{
+			pthread_mutex_unlock(philo->data.m_trigger);
 			return (1);
+		}
+		pthread_mutex_unlock(philo->data.m_trigger);
 	}
 	printf("%ld %d is thinking\n", get_time() - philo->data.time_start, philo->number);
 	return (0);
@@ -53,10 +73,17 @@ void	*fn_philo(void *arg)
 
 	philo = (t_philo *)arg;
 	printf("%ld %d is thinking\n", get_time() - philo->data.time_start, philo->number);
-	while (*philo->data.death != 1 && philo->number_eat != philo->data.nb_t_eat)
+	while (/*philo->data.death != 1 && */philo->number_eat != philo->data.nb_t_eat)
 	{
 		if (eating(philo) == 1)
+		{
+			if(pthread_mutex_destroy(&philo->fork) != 0)
+			{
+				pthread_mutex_unlock(&philo->fork);
+				pthread_mutex_destroy(&philo->fork);
+			}
 			return (NULL);
+		}
 		//while (get_time() - (philo->data.time_start + philo->actu_time) != philo->data.t_die) {}
 	}
 	return (NULL);
@@ -67,9 +94,15 @@ t_data	copy_data(t_data data)
 	t_data	copy_data;
 	int		death;
 	int		trigger_nb_eat;
+	pthread_mutex_t	m_death;
+	pthread_mutex_t	m_trigger;
+	//pthread_mutex_t	m_printf;
 
 	death = 0;
 	trigger_nb_eat = 0;
+	pthread_mutex_init(&m_death, NULL);
+	pthread_mutex_init(&m_trigger, NULL);
+	//pthread_mutex_init(&m_printf, NULL);
 	copy_data.nb_philo = data.nb_philo;
 	copy_data.t_die = data.t_die;
 	copy_data.t_eat = data.t_eat;
@@ -78,6 +111,9 @@ t_data	copy_data(t_data data)
 	copy_data.time_start = data.time_start;
 	copy_data.death = &death;
 	copy_data.trigger_nb_eat = &trigger_nb_eat;
+	copy_data.m_death = &m_death;
+	copy_data.m_trigger = &m_trigger;
+	//copy_data.m_printf = &m_printf;
 	return (copy_data);
 }
 

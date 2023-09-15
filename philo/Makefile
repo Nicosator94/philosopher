@@ -8,7 +8,8 @@ SOURCES = main.c \
 		init_data.c \
 		time.c \
 		ft_atoi.c \
-		create_thread.c
+		create_thread.c \
+		mutex.c
 
 SRC = srcs/
 DIR = objs_deps/
