@@ -6,7 +6,7 @@
 /*   By: niromano <niromano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 09:11:16 by niromano          #+#    #+#             */
-/*   Updated: 2023/09/15 14:07:03 by niromano         ###   ########.fr       */
+/*   Updated: 2023/09/18 07:58:32 by niromano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ typedef struct s_data
 	long			nb_t_eat;
 	long			time_start;
 	pthread_mutex_t	*m_printf;
+	pthread_mutex_t	*m_death;
+	int				*trigger_death;
 }					t_data;
 
 typedef struct s_philo
@@ -39,6 +41,8 @@ typedef struct s_philo
 	pthread_mutex_t	*next_fork;
 	long			actu_time;
 	t_data			data;
+	long			before_die;
+	long			old_die;
 }					t_philo;
 
 int		parsing(int argc, char *argv[]);
