@@ -6,7 +6,7 @@
 /*   By: niromano <niromano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 10:59:22 by niromano          #+#    #+#             */
-/*   Updated: 2023/09/15 14:07:44 by niromano         ###   ########.fr       */
+/*   Updated: 2023/09/19 15:39:07 by niromano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,17 @@ t_data	init_data(int argc, char *argv[])
 	else
 		data.nb_t_eat = -1;
 	return (data);
+}
+
+t_data	copy_data(t_data data)
+{
+	t_data	copy_data;
+
+	copy_data.nb_philo = data.nb_philo;
+	copy_data.t_die = data.t_die;
+	copy_data.t_eat = data.t_eat;
+	copy_data.t_sleep = data.t_sleep;
+	copy_data.nb_t_eat = data.nb_t_eat;
+	copy_data.time_start = data.time_start;
+	return (copy_data);
 }

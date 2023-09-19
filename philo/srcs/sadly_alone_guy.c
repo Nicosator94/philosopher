@@ -6,7 +6,7 @@
 /*   By: niromano <niromano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 13:10:24 by niromano          #+#    #+#             */
-/*   Updated: 2023/09/19 14:02:11 by niromano         ###   ########.fr       */
+/*   Updated: 2023/09/19 14:30:08 by niromano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	*fn_alone(void *arg)
 
 	philo = (t_philo *)arg;
 	pthread_mutex_lock(&philo->mutex->printf);
-	printf("%ld %d is thinking\n", get_time() - philo->data.time_start, philo->number);
+	printf("%ld %d is thinking\n", get_time()
+		- philo->data.time_start, philo->number);
 	pthread_mutex_unlock(&philo->mutex->printf);
 	usleep(philo->data.t_die * 1000);
 	pthread_mutex_lock(&philo->mutex->printf);

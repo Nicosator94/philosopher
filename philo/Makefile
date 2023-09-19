@@ -9,7 +9,9 @@ SOURCES = main.c \
 		time.c \
 		ft_atoi.c \
 		create_thread.c \
+		fn_philo.c \
 		mutex.c \
+		death.c \
 		sadly_alone_guy.c
 
 SRC = srcs/
