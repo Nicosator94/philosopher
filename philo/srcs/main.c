@@ -6,7 +6,7 @@
 /*   By: niromano <niromano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 09:17:06 by niromano          #+#    #+#             */
-/*   Updated: 2023/09/19 11:22:58 by niromano         ###   ########.fr       */
+/*   Updated: 2023/09/19 14:10:53 by niromano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ int	main(int argc, char *argv[])
 	mutex = malloc(sizeof(t_mutex));
 	pthread_mutex_init(&mutex->death, NULL);
 	pthread_mutex_init(&mutex->printf, NULL);
+	pthread_mutex_init(&mutex->counter, NULL);
 	mutex->d_trig = 0;
+	mutex->count = 0;
 	if (parsing(argc, argv) == 0)
 	{
 		data = init_data(argc, argv);
@@ -31,7 +33,10 @@ int	main(int argc, char *argv[])
 			return (0);
 		data.time_start = get_time();
 		philo = malloc(sizeof(t_philo) * data.nb_philo);
-		create_thread(data, philo, mutex);
+		if (data.nb_philo == 1)
+			sadly_alone_guy(data, philo, mutex);
+		else
+			create_thread(data, philo, mutex);
 		while (i != data.nb_philo)
 		{
 			pthread_join(philo[i].thread_philo, NULL);

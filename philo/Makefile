@@ -9,7 +9,8 @@ SOURCES = main.c \
 		time.c \
 		ft_atoi.c \
 		create_thread.c \
-		mutex.c
+		mutex.c \
+		sadly_alone_guy.c
 
 SRC = srcs/
 DIR = objs_deps/

@@ -6,7 +6,7 @@
 /*   By: niromano <niromano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 10:47:52 by niromano          #+#    #+#             */
-/*   Updated: 2023/09/19 12:17:43 by niromano         ###   ########.fr       */
+/*   Updated: 2023/09/19 14:26:27 by niromano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,20 @@
 
 int	death(t_philo *philo)
 {
+	if (philo->count == philo->data.nb_t_eat)
+	{
+		pthread_mutex_lock(&philo->mutex->counter);
+		philo->mutex->count += 1;
+		philo->count += 1;
+		pthread_mutex_unlock(&philo->mutex->counter);
+	}
+	pthread_mutex_lock(&philo->mutex->counter);
+	if (philo->mutex->count == philo->data.nb_philo)
+	{
+		pthread_mutex_unlock(&philo->mutex->counter);
+		return (1);
+	}
+	pthread_mutex_unlock(&philo->mutex->counter);
 	pthread_mutex_lock(&philo->mutex->death);
 	if (philo->mutex->d_trig == 1)
 	{
@@ -58,6 +72,7 @@ int	eating(t_philo *philo)
 	}
 	pthread_mutex_unlock(philo->next_fork);
 	pthread_mutex_unlock(&philo->fork);
+	philo->count += 1;
 	philo->actu_time = get_time() - philo->data.time_start;
 	philo->old_die = philo->old_die + philo->before_die;
 	mutex_printf(philo, 3);
@@ -111,6 +126,7 @@ int	create_thread(t_data data, t_philo *philo, t_mutex *mutex)
 		philo[i].actu_time = 0;
 		philo[i].before_die = 0;
 		philo[i].old_die = 0;
+		philo[i].count = 0;
 		philo[i].mutex = mutex;
 		pthread_mutex_init(&philo[i].fork, NULL);
 		i ++;
