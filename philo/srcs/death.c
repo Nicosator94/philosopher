@@ -6,7 +6,7 @@
 /*   By: niromano <niromano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:57:31 by niromano          #+#    #+#             */
-/*   Updated: 2023/09/20 12:17:03 by niromano         ###   ########.fr       */
+/*   Updated: 2023/09/20 12:34:42 by niromano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 int	count_death(t_philo *philo)
 {
-	if (philo->count >= philo->data.nb_t_eat)
+	if (philo->count == philo->data.nb_t_eat)
 	{
 		pthread_mutex_lock(&philo->mutex->counter);
 		philo->mutex->count += 1;
 		pthread_mutex_unlock(&philo->mutex->counter);
-		philo->count = -1;
+		philo->count += 1;
 	}
 	pthread_mutex_lock(&philo->mutex->counter);
-	if (philo->mutex->count >= philo->data.nb_philo)
+	if (philo->mutex->count == philo->data.nb_philo)
 	{
 		pthread_mutex_unlock(&philo->mutex->counter);
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: niromano <niromano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:37:13 by niromano          #+#    #+#             */
-/*   Updated: 2023/09/20 12:08:15 by niromano         ###   ########.fr       */
+/*   Updated: 2023/09/20 12:35:16 by niromano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ int	eating(t_philo *philo)
 	}
 	pthread_mutex_unlock(philo->next_fork);
 	pthread_mutex_unlock(&philo->fork);
-	if (philo->count != -1)
-		philo->count += 1;
+	philo->count += 1;
 	philo->actu_time = get_time() - philo->data.time_start;
 	mutex_printf(philo, 3);
 	while (get_time() - (philo->data.time_start
