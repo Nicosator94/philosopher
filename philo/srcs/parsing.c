@@ -6,7 +6,7 @@
 /*   By: niromano <niromano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 07:01:10 by niromano          #+#    #+#             */
-/*   Updated: 2023/09/22 14:12:47 by niromano         ###   ########.fr       */
+/*   Updated: 2023/09/22 14:33:17 by niromano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int	check_max(t_data data)
 	if (data.nb_philo > int_max || data.t_die > int_max || data.t_eat > int_max
 		|| data.t_sleep > int_max || data.nb_t_eat > int_max)
 		trigger = 1;
-	// if (data.nb_philo < 0 || data.t_die < 0 || data.t_eat < 0
-	// 	|| data.t_sleep < 0 || data.nb_t_eat < 0)
-	// 	trigger = 1;
+	if (data.nb_philo < 0 || data.t_die < 0 || data.t_eat < 0
+		|| data.t_sleep < 0 || data.nb_t_eat < -1)
+		trigger = 1;
 	if (trigger == 1)
 	{
 		printf("Error\n");
