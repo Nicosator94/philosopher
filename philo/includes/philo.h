@@ -6,7 +6,7 @@
 /*   By: niromano <niromano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 09:11:16 by niromano          #+#    #+#             */
-/*   Updated: 2023/09/20 12:47:59 by niromano         ###   ########.fr       */
+/*   Updated: 2023/09/22 13:23:02 by niromano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,44 +31,51 @@ typedef struct s_mutex
 
 typedef struct s_data
 {
-	long	nb_philo;
-	long	t_die;
-	long	t_eat;
-	long	t_sleep;
-	long	nb_t_eat;
-	long	time_start;
-}					t_data;
+	int			nb_philo;
+	int			t_die;
+	int			t_eat;
+	int			t_sleep;
+	int			nb_t_eat;
+	long long	time_start;
+}				t_data;
+
+typedef struct s_fork
+{
+	pthread_mutex_t	fork;
+	pthread_mutex_t	state;
+	int				open;
+}					t_fork;
 
 typedef struct s_philo
 {
-	int				number;
-	pthread_t		thread_philo;
-	pthread_mutex_t	fork;
-	pthread_mutex_t	*next_fork;
-	long			actu_time;
-	t_data			data;
-	long			before_die;
-	long			old_die;
-	t_mutex			*mutex;
-	int				count;
-}					t_philo;
+	int			number;
+	pthread_t	thread_philo;
+	t_fork		fork;
+	t_fork		*next_fork;
+	long long	actu_time;
+	t_data		data;
+	long long	before_die;
+	long long	old_die;
+	t_mutex		*mutex;
+	int			count;
+}				t_philo;
 
-int		parsing(int argc, char *argv[]);
-long	ft_atoi(const char *nptr);
+int			parsing(int argc, char *argv[]);
+long		ft_atoi(const char *nptr);
 
-t_data	init_data(int argc, char *argv[]);
-long	get_time(void);
+t_data		init_data(int argc, char *argv[]);
+long long	get_time(void);
 
-int		check_max(t_data data);
-int		check_nb_philo(t_data data);
+int			check_max(t_data data);
+int			check_nb_philo(t_data data);
 
-void	sadly_alone_guy(t_data data, t_philo *philo, t_mutex *mutex);
+void		sadly_alone_guy(t_data data, t_philo *philo, t_mutex *mutex);
 
-int		create_thread(t_data data, t_philo *philo, t_mutex *mutex);
-t_data	copy_data(t_data data);
-void	*fn_philo(void *arg);
+int			create_thread(t_data data, t_philo *philo, t_mutex *mutex);
+t_data		copy_data(t_data data);
+void		*fn_philo(void *arg);
 
-int		death(t_philo *philo);
-void	mutex_printf(t_philo *philo, int trigger);
+int			death(t_philo *philo);
+void		mutex_printf(t_philo *philo, int trigger);
 
 #endif
