@@ -6,7 +6,7 @@
 /*   By: niromano <niromano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 13:10:24 by niromano          #+#    #+#             */
-/*   Updated: 2023/09/22 14:56:53 by niromano         ###   ########.fr       */
+/*   Updated: 2023/09/25 08:14:03 by niromano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	*fn_alone(void *arg)
 	return (0);
 }
 
-void	sadly_alone_guy(t_data data, t_philo *philo, t_mutex *mutex)
+int	sadly_alone_guy(t_data data, t_philo *philo, t_mutex *mutex)
 {
 	philo[0].data = copy_data(data);
 	philo[0].number = 1;
@@ -37,6 +37,9 @@ void	sadly_alone_guy(t_data data, t_philo *philo, t_mutex *mutex)
 	philo[0].old_die = 0;
 	philo[0].count = 0;
 	philo[0].mutex = mutex;
-	pthread_mutex_init(&philo[0].fork.fork, NULL);
-	pthread_create(&philo[0].thread_philo, NULL, fn_alone, &philo[0]);
+	if (pthread_mutex_init(&philo[0].fork.fork, NULL) != 0)
+		return (mutex_init_failed());
+	if (pthread_create(&philo[0].thread_philo, NULL, fn_alone, &philo[0]) != 0)
+		return (thread_create_failed());
+	return (0);
 }

@@ -12,7 +12,8 @@ SOURCES = main.c \
 		fn_philo.c \
 		mutex.c \
 		death.c \
-		sadly_alone_guy.c
+		sadly_alone_guy.c \
+		error.c
 
 SRC = srcs/
 DIR = objs_deps/

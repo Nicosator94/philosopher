@@ -6,7 +6,7 @@
 /*   By: niromano <niromano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 09:11:16 by niromano          #+#    #+#             */
-/*   Updated: 2023/09/22 13:23:02 by niromano         ###   ########.fr       */
+/*   Updated: 2023/09/25 08:12:37 by niromano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ long long	get_time(void);
 int			check_max(t_data data);
 int			check_nb_philo(t_data data);
 
-void		sadly_alone_guy(t_data data, t_philo *philo, t_mutex *mutex);
+int			sadly_alone_guy(t_data data, t_philo *philo, t_mutex *mutex);
 
 int			create_thread(t_data data, t_philo *philo, t_mutex *mutex);
 t_data		copy_data(t_data data);
@@ -77,5 +77,8 @@ void		*fn_philo(void *arg);
 
 int			death(t_philo *philo);
 void		mutex_printf(t_philo *philo, int trigger);
+
+int			mutex_init_failed();
+int			thread_create_failed();
 
 #endif

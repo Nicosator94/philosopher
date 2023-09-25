@@ -6,7 +6,7 @@
 /*   By: niromano <niromano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:37:13 by niromano          #+#    #+#             */
-/*   Updated: 2023/09/22 14:21:35 by niromano         ###   ########.fr       */
+/*   Updated: 2023/09/25 07:58:57 by niromano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ int	thinking(t_philo *philo)
 		pthread_mutex_unlock(&philo->fork.state);
 		if (death(philo) == 1)
 			return (1);
+		pthread_mutex_lock(&philo->fork.state);
+		pthread_mutex_lock(&philo->next_fork->state);
 	}
 	pthread_mutex_unlock(&philo->next_fork->state);
 	pthread_mutex_unlock(&philo->fork.state);
@@ -96,11 +98,11 @@ void	*fn_philo(void *arg)
 	philo = (t_philo *)arg;
 	mutex_printf(philo, 4);
 	if (philo->number % 2 == 0)
-		usleep(1000);
+		usleep(100);
 	while (1)
 	{
-		usleep(1000);
-		philo->data.time_start += 1;
+		usleep(100);
+		philo->data.time_start += 0.1;
 		if (take_fork(philo) == 1)
 			return (NULL);
 		if (eating(philo) == 1)
