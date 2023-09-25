@@ -6,7 +6,7 @@
 /*   By: niromano <niromano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:37:13 by niromano          #+#    #+#             */
-/*   Updated: 2023/09/25 07:58:57 by niromano         ###   ########.fr       */
+/*   Updated: 2023/09/25 12:34:43 by niromano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	take_fork(t_philo *philo)
 	pthread_mutex_lock(&philo->fork.state);
 	philo->fork.open = 1;
 	pthread_mutex_unlock(&philo->fork.state);
-	mutex_printf(philo, 1);
+	mutex_printf(philo, "%lld %d has taken a fork\n");
 	if (death(philo) == 1)
 	{
 		pthread_mutex_unlock(&philo->fork.fork);
@@ -29,13 +29,13 @@ int	take_fork(t_philo *philo)
 	philo->next_fork->open = 1;
 	pthread_mutex_unlock(&philo->next_fork->state);
 	philo->actu_time = get_time() - philo->data.time_start;
-	mutex_printf(philo, 1);
+	mutex_printf(philo, "%lld %d has taken a fork\n");
 	return (0);
 }
 
 int	eating(t_philo *philo)
 {
-	mutex_printf(philo, 2);
+	mutex_printf(philo, "%lld %d is eating\n");
 	philo->old_die = get_time() - philo->data.time_start;
 	while (get_time() - (philo->data.time_start
 			+ philo->actu_time) < philo->data.t_eat)
@@ -62,7 +62,7 @@ int	eating(t_philo *philo)
 int	sleeping(t_philo *philo)
 {
 	philo->actu_time = get_time() - philo->data.time_start;
-	mutex_printf(philo, 3);
+	mutex_printf(philo, "%lld %d is sleeping\n");
 	while (get_time() - (philo->data.time_start
 			+ philo->actu_time) < philo->data.t_sleep)
 	{
@@ -74,7 +74,7 @@ int	sleeping(t_philo *philo)
 
 int	thinking(t_philo *philo)
 {
-	mutex_printf(philo, 4);
+	mutex_printf(philo, "%lld %d is thinking\n");
 	pthread_mutex_lock(&philo->fork.state);
 	pthread_mutex_lock(&philo->next_fork->state);
 	while (philo->fork.open == 1 || philo->next_fork->open == 1)
@@ -96,13 +96,12 @@ void	*fn_philo(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	mutex_printf(philo, 4);
+	mutex_printf(philo, "%lld %d is thinking\n");
 	if (philo->number % 2 == 0)
 		usleep(100);
 	while (1)
 	{
-		usleep(100);
-		philo->data.time_start += 0.1;
+		usleep(20);
 		if (take_fork(philo) == 1)
 			return (NULL);
 		if (eating(philo) == 1)

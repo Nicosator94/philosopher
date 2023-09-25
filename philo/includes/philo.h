@@ -6,7 +6,7 @@
 /*   By: niromano <niromano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 09:11:16 by niromano          #+#    #+#             */
-/*   Updated: 2023/09/25 08:12:37 by niromano         ###   ########.fr       */
+/*   Updated: 2023/09/25 12:20:02 by niromano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_data		copy_data(t_data data);
 void		*fn_philo(void *arg);
 
 int			death(t_philo *philo);
-void		mutex_printf(t_philo *philo, int trigger);
+void		mutex_printf(t_philo *philo, char *s);
 
 int			mutex_init_failed();
 int			thread_create_failed();
