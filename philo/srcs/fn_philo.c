@@ -6,7 +6,7 @@
 /*   By: niromano <niromano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:37:13 by niromano          #+#    #+#             */
-/*   Updated: 2023/09/26 07:38:42 by niromano         ###   ########.fr       */
+/*   Updated: 2023/09/26 14:43:11 by niromano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	*fn_philo(void *arg)
 			if (cycle_for_odd(philo) == 1)
 				return (NULL);
 		}
+		if (check_death(philo) == 1)
+			return (NULL);
 	}
 	return (NULL);
 }

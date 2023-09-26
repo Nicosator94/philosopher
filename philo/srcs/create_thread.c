@@ -6,7 +6,7 @@
 /*   By: niromano <niromano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 10:47:52 by niromano          #+#    #+#             */
-/*   Updated: 2023/09/25 09:59:18 by niromano         ###   ########.fr       */
+/*   Updated: 2023/09/26 14:48:44 by niromano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,11 @@ void	set_philo(t_data data, t_philo *philo, t_mutex *mutex)
 		philo[i].data = copy_data(data);
 		philo[i].number = i + 1;
 		philo[i].actu_time = 0;
-		philo[i].before_die = 0;
-		philo[i].old_die = 0;
 		philo[i].count = 0;
 		philo[i].mutex = mutex;
 		pthread_mutex_init(&philo[i].fork.fork, NULL);
-		philo[i].fork.open = 0;
-		pthread_mutex_init(&philo[i].fork.state, NULL);
+		pthread_mutex_init(&philo[i].last_eat, NULL);
+		philo[i].t_last_eat = 0;
 		i ++;
 	}
 }

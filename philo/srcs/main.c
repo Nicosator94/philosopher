@@ -6,7 +6,7 @@
 /*   By: niromano <niromano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 09:17:06 by niromano          #+#    #+#             */
-/*   Updated: 2023/09/25 10:56:37 by niromano         ###   ########.fr       */
+/*   Updated: 2023/09/26 14:43:38 by niromano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,15 @@ int	init_mutex(t_mutex *mutex)
 		printf("Malloc Failed\n");
 		return (1);
 	}
+	if (pthread_mutex_init(&mutex->printf, NULL) != 0)
+		return (mutex_init_failed());
 	if (pthread_mutex_init(&mutex->death, NULL) != 0)
 		return (mutex_init_failed());
-	if (pthread_mutex_init(&mutex->printf, NULL) != 0)
+	if (pthread_mutex_init(&mutex->end, NULL) != 0)
 		return (mutex_init_failed());
 	if (pthread_mutex_init(&mutex->counter, NULL) != 0)
 		return (mutex_init_failed());
-	mutex->d_trig = 0;
+	mutex->trigger_end = 0;
 	mutex->count = 0;
 	return (0);
 }
@@ -81,6 +83,8 @@ int	main(int argc, char *argv[])
 		philo = malloc(sizeof(t_philo) * data.nb_philo);
 		if (thread(data, philo, mutex) == 1)
 			return (1);
+		if (data.nb_philo > 1)
+			death(philo);
 		while (i != data.nb_philo)
 		{
 			pthread_join(philo[i].thread_philo, NULL);

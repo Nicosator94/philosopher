@@ -6,7 +6,7 @@
 /*   By: niromano <niromano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 09:11:16 by niromano          #+#    #+#             */
-/*   Updated: 2023/09/26 07:29:06 by niromano         ###   ########.fr       */
+/*   Updated: 2023/09/26 14:16:26 by niromano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@
 typedef struct s_mutex
 {
 	pthread_mutex_t	printf;
+	pthread_mutex_t	end;
 	pthread_mutex_t	death;
 	pthread_mutex_t	counter;
-	int				d_trig;
 	int				count;
+	int				trigger_end;
 }					t_mutex;
 
 typedef struct s_data
@@ -42,23 +43,21 @@ typedef struct s_data
 typedef struct s_fork
 {
 	pthread_mutex_t	fork;
-	pthread_mutex_t	state;
-	int				open;
 }					t_fork;
 
 typedef struct s_philo
 {
-	int			number;
-	pthread_t	thread_philo;
-	t_fork		fork;
-	t_fork		*next_fork;
-	long long	actu_time;
-	t_data		data;
-	long long	before_die;
-	long long	old_die;
-	t_mutex		*mutex;
-	int			count;
-}				t_philo;
+	int				number;
+	pthread_t		thread_philo;
+	t_fork			fork;
+	t_fork			*next_fork;
+	long long		actu_time;
+	t_data			data;
+	t_mutex			*mutex;
+	int				count;
+	pthread_mutex_t	last_eat;
+	long long		t_last_eat;
+}					t_philo;
 
 int			parsing(int argc, char *argv[]);
 long		ft_atoi(const char *nptr);
@@ -78,7 +77,8 @@ void		*fn_philo(void *arg);
 int			cycle_for_even(t_philo *philo);
 int			cycle_for_odd(t_philo *philo);
 
-int			death(t_philo *philo);
+void		death(t_philo *philo);
+int			check_death(t_philo *philo);
 void		mutex_printf(t_philo *philo, char *s);
 
 int			mutex_init_failed();
