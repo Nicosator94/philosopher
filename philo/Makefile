@@ -10,6 +10,8 @@ SOURCES = main.c \
 		ft_atoi.c \
 		create_thread.c \
 		fn_philo.c \
+		cycle_for_even.c \
+		cycle_for_odd.c \
 		mutex.c \
 		death.c \
 		sadly_alone_guy.c \

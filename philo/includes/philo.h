@@ -6,7 +6,7 @@
 /*   By: niromano <niromano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 09:11:16 by niromano          #+#    #+#             */
-/*   Updated: 2023/09/25 12:20:02 by niromano         ###   ########.fr       */
+/*   Updated: 2023/09/26 07:29:06 by niromano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,9 @@ int			sadly_alone_guy(t_data data, t_philo *philo, t_mutex *mutex);
 int			create_thread(t_data data, t_philo *philo, t_mutex *mutex);
 t_data		copy_data(t_data data);
 void		*fn_philo(void *arg);
+
+int			cycle_for_even(t_philo *philo);
+int			cycle_for_odd(t_philo *philo);
 
 int			death(t_philo *philo);
 void		mutex_printf(t_philo *philo, char *s);
