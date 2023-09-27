@@ -4,17 +4,21 @@ CFLAGS = -Wall -Wextra -Werror -MMD -g3
 HEADERS = philo.h
 
 SOURCES = main.c \
+		ft_atoi.c \
 		parsing.c \
 		init_data.c \
+		init_mutex.c \
 		time.c \
-		ft_atoi.c \
+		ft_philo.c \
+		sadly_alone_guy.c \
 		create_thread.c \
 		fn_philo.c \
 		cycle.c \
-		mutex.c \
+		mutex_printf.c \
 		death.c \
-		sadly_alone_guy.c \
-		error.c
+		check_end.c \
+		error.c \
+		destroy_all.c
 
 SRC = srcs/
 DIR = objs_deps/

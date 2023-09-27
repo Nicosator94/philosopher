@@ -6,7 +6,7 @@
 /*   By: niromano <niromano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 10:47:52 by niromano          #+#    #+#             */
-/*   Updated: 2023/09/27 07:34:18 by niromano         ###   ########.fr       */
+/*   Updated: 2023/09/27 10:36:34 by niromano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ int	create_thread(t_data data, t_philo *philo, t_mutex *mutex)
 	i = 0;
 	while (i != data.nb_philo)
 	{
-		if (pthread_create(&philo[i].thread_philo, NULL, fn_philo, &philo[i]) != 0)
+		if (pthread_create(&philo[i].thread_philo,
+				NULL, fn_philo, &philo[i]) != 0)
 			return (thread_create_failed());
 		i ++;
 	}
