@@ -6,7 +6,7 @@
 /*   By: niromano <niromano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 07:20:48 by niromano          #+#    #+#             */
-/*   Updated: 2023/09/26 14:43:29 by niromano         ###   ########.fr       */
+/*   Updated: 2023/09/27 08:16:01 by niromano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int	cycle_for_even(t_philo *philo)
 		usleep(50);
 	}
 	mutex_printf(philo, "%lld %d is thinking\n");
+	philo->actu_time = get_time() - philo->data.time_start;
 	return (0);
 }
 
@@ -123,5 +124,6 @@ int	cycle_for_odd(t_philo *philo)
 		usleep(50);
 	}
 	mutex_printf(philo, "%lld %d is thinking\n");
+	philo->actu_time = get_time() - philo->data.time_start;
 	return (0);
 }

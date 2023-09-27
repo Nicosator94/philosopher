@@ -6,11 +6,33 @@
 /*   By: niromano <niromano@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 15:37:13 by niromano          #+#    #+#             */
-/*   Updated: 2023/09/26 14:43:11 by niromano         ###   ########.fr       */
+/*   Updated: 2023/09/27 10:26:08 by niromano         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+int	sleep_think(t_philo *philo)
+{
+	int comp;
+
+	comp = philo->data.t_die - philo->data.t_eat * 3;
+	if (comp < 0)
+		comp = -comp;
+	if (comp >= 0 && philo->data.t_eat >= philo->data.t_sleep)
+	{
+		while (get_time() - (philo->data.time_start
+				+ philo->actu_time) < philo->data.t_eat)
+		{
+			if (check_death(philo) == 1)
+				return (1);
+			usleep(50);
+		}
+	}
+	else
+		usleep(20);
+	return (0);
+}
 
 void	*fn_philo(void *arg)
 {
@@ -22,7 +44,6 @@ void	*fn_philo(void *arg)
 		usleep(100);
 	while (1)
 	{
-		usleep(20);
 		if (philo->number % 2 == 0)
 		{
 			if (cycle_for_even(philo) == 1)
@@ -35,6 +56,13 @@ void	*fn_philo(void *arg)
 		}
 		if (check_death(philo) == 1)
 			return (NULL);
+		if (philo->data.nb_philo % 2 == 1)
+		{
+			if (sleep_think(philo) == 1)
+				return (NULL);
+		}
+		else
+			usleep(20);
 	}
 	return (NULL);
 }
